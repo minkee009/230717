@@ -87,7 +87,7 @@ namespace _230717
 
             var lastEnemyX = enemyX;
             var lastEnemyY = enemyY;
-
+            var random = new Random();
             var processEnemyPosX = playerX - enemyX;
             var processEnemyPosY = playerY - enemyY;
 
@@ -98,8 +98,16 @@ namespace _230717
             }
             else if (Math.Abs(processEnemyPosX) == Math.Abs(processEnemyPosY))
             {
-                enemyY += processEnemyPosY > 0 ? 1 : -1;
-                enemyX += processEnemyPosX > 0 ? 1 : -1;
+                switch (random.Next(2))
+                {
+                    case 0:
+                        enemyY += processEnemyPosY > 0 ? 1 : -1;
+                        break;
+                    case 1:
+                        enemyX += processEnemyPosX > 0 ? 1 : -1;
+                        break;
+
+                }
             }
             else
             {
