@@ -29,35 +29,60 @@ namespace _230717
 
         static void Main(string[] args)
         {
-
-            //처음 위치
-            playerX = 5;
-            playerY = 5;
-
-            enemyX = 1;
-            enemyY = 2;
-
-            //첫 화면
-            Render();
-
-            ConsoleKeyInfo info = new ConsoleKeyInfo();
-            bool isEndGame = false;
-
-            while (!(info.Key == ConsoleKey.Escape) && !isEndGame)
+            bool isNotOverYet = true;
+            while (isNotOverYet)
             {
-                ////인풋
-                info = Input();
+                //처음 위치
+                playerX = 5;
+                playerY = 5;
 
-                ////프로세스
-                isEndGame = Process(info);
+                enemyX = 1;
+                enemyY = 2;
 
-                ////렌더
-                //화면 그리기
-                Console.Clear();
+                //첫 화면
                 Render();
+
+                ConsoleKeyInfo info = new ConsoleKeyInfo();
+                bool isEndGame = false;
+
+                while (!(info.Key == ConsoleKey.Escape) && !isEndGame)
+                {
+                    ////인풋
+                    info = Input();
+
+                    ////프로세스
+                    isEndGame = Process(info);
+
+                    ////렌더
+                    //화면 그리기
+                    Console.Clear();
+                    Render();
+                }
+                Console.WriteLine("Game Over");
+                Delay(1000);
+                Console.WriteLine("Restart ? Y / N");
+                string restartgame = Console.ReadLine();
+
+                if ((restartgame == "n") ||(restartgame == "N"))
+                    isNotOverYet = false;
+                Console.Clear();
             }
+
         }
 
+        private static DateTime Delay(int MS)
+        {
+            DateTime ThisMoment = DateTime.Now;
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, MS);
+            DateTime AfterWards = ThisMoment.Add(duration);
+
+            while (AfterWards >= ThisMoment)
+            {
+                ThisMoment = DateTime.Now;
+            }
+
+            return DateTime.Now;
+        }
 
         static ConsoleKeyInfo Input()
         {
