@@ -91,6 +91,12 @@ namespace _230717
             var processEnemyPosX = playerX - enemyX;
             var processEnemyPosY = playerY - enemyY;
 
+            if ((playerX == enemyX) && (playerY == enemyY))
+            {
+                return true;
+            }
+            
+
             if (Math.Abs(processEnemyPosX)
                 > Math.Abs(processEnemyPosY))
             {
@@ -106,7 +112,6 @@ namespace _230717
                     case 1:
                         enemyX += processEnemyPosX > 0 ? 1 : -1;
                         break;
-
                 }
             }
             else
