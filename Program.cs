@@ -65,10 +65,17 @@ namespace _230717
 
                
                 Delay(1000);
-                Console.WriteLine("Restart ? Y / N");
-                string restartgame = Console.ReadLine();
 
-                if ((restartgame == "n") ||(restartgame == "N"))
+                //죽을때까지 물어볼꺼임
+                string restartgame = "";
+                while (!((restartgame == "y") || (restartgame == "Y"))
+                    && !((restartgame == "n") || (restartgame == "N")))
+                {
+                    Console.WriteLine("Restart? Y / N");
+                    restartgame = Console.ReadLine();
+                }
+                
+                if ((restartgame == "n") || (restartgame == "N"))
                     isNotOverYet = false;
                 Console.Clear();
             }
@@ -123,21 +130,23 @@ namespace _230717
             PlayerPos.x = PlayerPos.x > 0 ? Math.Min(PlayerPos.x, 9) : 0;
             PlayerPos.y = PlayerPos.y > 0 ? Math.Min(PlayerPos.y, 9) : 0;
 
+            //벽 충돌체크
             if (map[PlayerPos.y, PlayerPos.x] == 2)
             {
                 PlayerPos = lastPlayerPos;
             }
 
-
-            var lastEnemyPos = new Position(EnemyPos.x, EnemyPos.y);
-            var random = new Random();
-
-            var processEnemyPos = PlayerPos - EnemyPos;
-
+            //플레이어 -> 적 충돌체크
             if (PlayerPos.isCollideOtherPos(EnemyPos))
             {
                 return 2;
             }
+
+            //적 이동
+            var lastEnemyPos = new Position(EnemyPos.x, EnemyPos.y);
+            var random = new Random();
+
+            var processEnemyPos = PlayerPos - EnemyPos;
 
             if (Math.Abs(processEnemyPos.x)
                 > Math.Abs(processEnemyPos.y))
@@ -178,6 +187,7 @@ namespace _230717
                 EnemyPos.y += processEnemyPos.y > 0 ? 1 : -1;
             }
 
+            //벽 충돌체크
             if (map[EnemyPos.y, EnemyPos.x] == 2)
             {
                 EnemyPos = lastEnemyPos;

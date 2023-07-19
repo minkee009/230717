@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PositionExtension
 {
+
     public struct Position
     {
         public int x, y;
@@ -44,4 +45,6 @@ namespace PositionExtension
             return new Position(a.x * b.x, a.y * b.y);
         }
     }
+
+
 }
